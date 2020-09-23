@@ -1,11 +1,19 @@
-# Create by John
-# 23/09/20
 import time
-def progress(r=30, c=50):
-	i = range(r + 1)
-	for n in i:
-		p = int((n / i[-1]) * 100) # Primeiro calculamos a porcentagem do item iterado, e o final
-		p_ = int((p / 100) * c) # Agora calculamos x% do tamanho da barra
-		print('\rProgress |{}| {}/{}'.format(('#' * p_) + ' ' * (c - p_), n, i[-1]), end="")
+class progress:
+	def __init__(self, _range=100, cols=30):
+		self._range = _range
+		self.cols = cols
+	def __iter__(self):
+		self.num = 0
+		return self
+	def __next__(self):
+		if self.num >= self._range:
+			raise StopIteration
+		self.num += 1
+		p = int((self.num / self._range) * 100)
+		p_ = int((p / 100) * self.cols)
+		print('\r {0:3}% |{1}| {2}/{3}'.format(p, '█' * p_ + ' ' * (self.cols - p_), self.num, self._range), end="")
 		time.sleep(0.1)
-progress(c=30)
+		return self.num
+for n in progress(_range=200):
+	pass
