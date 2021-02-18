@@ -30,4 +30,4 @@ class Progress:
 p = Progress(50)
 for n in p:
 	p.update('Hello')
-	time.sleep(0.1)
+	time.sleep(0.1) 
